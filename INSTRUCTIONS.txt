@@ -1,0 +1,27 @@
+*** ISTRUZIONI PER POTER RUNNARE IL CODICE DELLE SIMULAZIONI ***
+
+Per poter settare i parametri:
+Al momento il codice è impostato per fare 10 simulazioni di fila. In caso si volesse cambiare il numero delle epoche basta modificare il parametro 'tot_epoch' ricordando che deve sempre essere pari a un numero in più rispetto a quello delle simulazioni che si vogliono.
+
+L'osso che sta girando ora è impostato per essere una femore longitudinale, le tipologie di osso disponibile sono scritte sopra il paramtero, dove c'è scritto: '1) Geometry'
+Per quanto riguarda invece la grandezza del tumore, al momento la sua area di partenza è sulle 12 celle, che credo sia la grandezza a disposizione più piccola, per cambiarla modificare il parametro 'tumor_dim', che può andare da 0 a 10. Io non consiglio di scendere sotto il 2 onestamente. Per fare tumore da 60 la grandezza corretta dovrebbe essere la 3 e per 200 la 4, ma dipende anche dalla posizione di inizializzazione del tumore.
+Il punto di inizializzazione all'interno dell'osso invece è dato dalle coordinate. Ogni geometria è diversa quindi è sempre un po' macchinoso, per cambiarlo bisogna cambiare le coordinate, che non è particolarmente pratico, ma commentate ci sono già tre/quattro coordinate settate per il femore longitudinale, quindi basta scommentarle e vederle. 
+
+Per fare partire la terapia di Cabo basta tenere il parametro 'flag_cabozantinib' a 1, altrimenti metterlo ad 0.
+Gli altri parametri se bisogna runnare solo simulazioni di cabo in continuo non serve toccarli. SE invece si vuole interrompere la terapia di cabo bisogna settare anche il parametro di fine 'end_cabo_subministration'. Va a giorni quindi in base al giorno che si vuole interrompere si setta il parametro a giorno*24 in modo da convertirlo in modo pratico in ore. 
+
+Il tempo delle simulazioni si decide cambiando il parametro 'follow_up' e al momento è di 15 giorni.
+
+Infine, per come è settato ora il codice mostra la matrice dell'osso mentre va. Il video non c'è perché ho tolto l'opzione, mi pare di capire che non serva, in caso basta scommentare il VideoRequest alla fine del codice del main. Alla fine dell'ultima simulazione chiede l'esplicito consenso a salvare il video e poi parte il salvataggio dell'ultima simulazione effettuata. 
+
+Inoltre, sempre nella cartella RENCA all'interno della cartella Results viene salvato
+- l'area normalizzata del tumore ad ogni ora della simulazione per ogni simulazione
+- il numero di vasi ad ogni ora di simulazione
+- le immagini già in jpg dei giorni 1, 5, 9, 12, e 15
+se dovessero servire medie/std/conversioni in excel potete mandarmi tutto e converto subito
+NOTA BENE: Questi file salvati (e il video) vengono persi ogni qual volta una nuova simulazione viene fatta partire quindi è importante assicurarsi di aver salvato da qualche altra parte tutto se non si vuole perdere tutto
+DA RICORDARE: tutte le cose che vengono salvate in results\RENCA vanno poi spostate subito dopo la simulazione e prima di farne partire un'altra, altrimenti viene perso tutto!
+
+ALTRA COSA IMPORTANTE!!! Controllare che la directory sia quella giusta, se no il codice non parte! IN TEORIA ho fatto in modo che anche partendo dalla directory del main si arrivi a quella giusta per runnare tutto ma in pratica potrebbe non funzionare. In caso bisogna cambiare manualmente la directory.
+Per fare questo basta prima di tutto commentare o cancellare la riga di codice 12 e poi schiacciare sul nome della root ('ABM_PCa_BoneMetastases_2.0') in cima, dove è scritto nella riga che inizia con l'iconicina del folder sulla sinistra e poi andare nel current folder, selezionare tutte le cartelle (che dovrebbero essere tipo opacizzate) TRANNE CHE SUL README E QUESTO FILE, che non devono essere inclusi nella selezione. Tasto destro, opzione 'Add to Path' e poi selezione dell'opzione 'Selected Folders and Subfolders'. 
+Se state runnando su Linux all'inizio darà errore. Schiacciate sulla riga di errore del terminale, vi farà direttamente andare a dove è stato causato il conflitto e probabilmente sarà dato dal fatto che tutte le directory sono sbagliate (Windows e Linux hanno la stanghetta al contrario nei path quindi dovete cambiare da '\' a '/')
